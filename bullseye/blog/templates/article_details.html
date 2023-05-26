@@ -1,23 +1,24 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template from the "blog" app -->
 
-{% block title %}
-    {{ post.title_tag}}
-{% endblock %}
+{% load static %}  <!-- Loads the static files for this template -->
 
-{% block content %}
+{% block title %}  <!-- Defines a block named "title" -->
+    {{ post.title_tag }}  <!-- Uses the value of post.title_tag as the content for the "title" block -->
+{% endblock %}  <!-- Ends the "title" block -->
 
-    <h1>{{ post.title }} </h1>
+{% block content %}  <!-- Defines a block named "content" -->
+    
+
+    <h1>{{ post.title }} </h1>  <!-- Displays the title of the blog post -->
     <small>By: 
         {{ post.author.first_name }}  
         {{ post.author.last_name }}  -  
-        {{post.post_date}}  
+        {{ post.post_date }}  <!-- Displays the author's name and post date -->
 
         {% if user.is_authenticated %}
             {% if user.id == post.author.id %}
-               - <a href="{% url 'update_post' post.pk %}">(Edit)</a>  
-               
-               <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+               - <a href="{% url 'update_post' post.pk %}">(Edit)</a>  <!-- Shows an "Edit" link if the user is the author of the post -->
+               <a href="{% url 'delete_post' post.pk %}">(Delete)</a>  <!-- Shows a "Delete" link if the user is the author of the post -->
             {% endif %}
         {% endif %}
     </small><hr>
@@ -25,50 +26,50 @@
     <br>
 
     {% if post.header_image %}
-        <img src='{{ post.header_image.url }}'>
+        <img src='{{ post.header_image.url }}'>  <!-- Displays the header image of the blog post if it exists -->
     {% endif %}
 
     <br/><br/>
-    {{ post.body|safe }}
-    
+    {{ post.body|safe }}  <!-- Renders the post's body content (HTML) -->
+
     <br>
     <br>
-    
-    <a href="{% url 'Home' %}" class="btn btn-secondary">Back</a>
+
+    <a href="{% url 'Home' %}" class="btn btn-secondary">Back</a>  <!-- Displays a "Back" button linking to the home page -->
 
     <br><br>
     <hr>
     <br>
 
-    <form action="{% url 'like_post' post.pk %}" method="POST">
+    <form action="{% url 'like_post' post.pk %}" method="POST">  <!-- Form for liking a post -->
         {% csrf_token %}
 
     {% if user.is_authenticated %}
         {% if liked %}
-            <button type="submit", name='post_id', value='{{  post.id }}', class="btn btn-danger btn-sm">Unlike</button>
+            <button type="submit", name='post_id', value='{{ post.id }}', class="btn btn-danger btn-sm">Unlike</button>  <!-- Displays an "Unlike" button if the user has already liked the post -->
         {% else %}
-
-            <button type="submit", name='post_id', value='{{  post.id }}', class="btn btn-primary btn-sm">Like</button>  
+            <button type="submit", name='post_id', value='{{ post.id }}', class="btn btn-primary btn-sm">Like</button>  <!-- Displays a "Like" button if the user has not yet liked the post -->
         {% endif %}
     {% else %}
-        <small><a href="{% url 'login' %}">Login</a>Login to like</small>
+        <small><a href="{% url 'login' %}">Login</a>Login to like</small>  <!-- Displays a login link for unauthenticated users to like the post -->
     {% endif %}
-            -  {{ total_likes }} Likes
+            -  {{ total_likes }} Likes  <!-- Displays the total number of likes for the post -->
     </form>
 
     <br/><br/><br/>
-<h2>Comments...</h2>
+    <h2>Comments...</h2>
     {% if not post.comments.all %}
-        No Comments Yet... <a href='#'>Add One</a>
-        {% else %}
-
+        No Comments Yet... <a href='#'>Add One</a>  <!-- Displays a message and a link to add a comment if there are no comments yet -->
+    {% else %}
         {% for comment in post.comments.all %}
         <strong>{{ comment.name }} - 
             <small>{{ comment.date_added }}</small>
         </strong>
         <br/>
         <hr>
-        {{ comment.body }}
+        {{ comment.body }}  <!-- Displays the comments -->
+        <br/>       
+}
         <br/>
         <hr>
         {% endfor %}

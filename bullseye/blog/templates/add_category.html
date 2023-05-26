@@ -1,24 +1,25 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template from the "blog" app -->
 
-{% block title %}
-    Create a new Blog Category!
-{% endblock %}
+{% load static %}  <!-- Loads the static files for this template -->
 
-{% block content %}
+{% block title %}  <!-- Defines a block named "title" -->
+    Create a new Blog Category!  <!-- Content for the "title" block -->
+{% endblock %}  <!-- Ends the "title" block -->
+
+{% block content %}  <!-- Defines a block named "content" -->
     
 
-{% if user.is_authenticated %}
-    <h1>Add Category...<h1>
+{% if user.is_authenticated %}  <!-- Checks if the user is authenticated -->
+    <h1>Add Category...<h1>  <!-- Heading for the category creation section -->
         <br>
-    <div class="mb-3 fs-4">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-secondary">Add Category</button>
+    <div class="mb-3 fs-4">  <!-- Container div with CSS classes -->
+        <form method="POST">  <!-- Form for adding a new category -->
+            {% csrf_token %}  <!-- CSRF protection token -->
+            {{ form.as_p }}  <!-- Renders the form fields as HTML paragraphs -->
+            <button type="submit" class="btn btn-secondary">Add Category</button>  <!-- Submit button for the form -->
     </div>
 {% else %}
-"You are not authourized to perform this operation"
+"You are not authorized to perform this operation"  <!-- Message displayed when the user is not authenticated -->
 {% endif %}
 
-{% endblock %}
+{% endblock %}  <!-- Ends the "content" block -->

@@ -1,23 +1,24 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template from the "blog" app -->
 
-{% block title %}
-    Comment on Blog Post
-{% endblock %}
+{% load static %}  <!-- Loads the static files for this template -->
 
-{% block content %}
+{% block title %}  <!-- Defines a block named "title" -->
+    Comment on Blog Post  <!-- Content for the "title" block -->
+{% endblock %}  <!-- Ends the "title" block -->
+
+{% block content %}  <!-- Defines a block named "content" -->
     
 
 
-    <h1>Add Comment...<h1>
+    <h1>Add Comment...<h1>  <!-- Heading for the comment creation section -->
         <br>
-    <div class="mb-3 fs-4">
-        <form method="POST" >
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-secondary">Add Comment</button>
+    <div class="mb-3 fs-4">  <!-- Container div with CSS classes -->
+        <form method="POST">  <!-- Form for adding a new comment -->
+            {% csrf_token %}  <!-- CSRF protection token -->
+            {{ form.as_p }}  <!-- Renders the form fields as HTML paragraphs -->
+            <button type="submit" class="btn btn-secondary">Add Comment</button>  <!-- Submit button for the form -->
     </div>
 
 
 
-{% endblock %}
+{% endblock %}  <!-- Ends the "content" block -->

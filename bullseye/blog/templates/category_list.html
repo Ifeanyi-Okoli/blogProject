@@ -1,20 +1,22 @@
-{% extends "blog/base.html" %}
-{% load static %}
-{% block title %}
-    Blog Categories
-{% endblock %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template -->
 
-{% block content %}
+{% load static %}  <!-- Loads static files -->
+
+{% block title %}  <!-- Defines the title block -->
+    Blog Categories
+{% endblock %}  <!-- Ends the title block -->
+
+{% block content %}  <!-- Defines the content block -->
 <h1>Blog Categories</h1>
 
-    {% for item in cat_menu_list %}
+    {% for item in cat_menu_list %}  <!-- Iterates over each item in cat_menu_list -->
+
         <h2>
-            <a class='dropldown-item' href="{% url 'category' item|slugify %}">
-                {{ item }}
+            <a class='dropldown-item' href="{% url 'category' item|slugify %}">  <!-- Creates a link to the 'category' view with the item slugified as the URL parameter -->
+                {{ item }}  <!-- Displays the category item -->
             </a>
         </h2>
         
-    {% endfor %}
+    {% endfor %}  <!-- Ends the for loop -->
 
-{% endblock %}
-```
+{% endblock %}  <!-- Ends the content block -->

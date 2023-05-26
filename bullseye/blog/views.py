@@ -45,27 +45,27 @@ def CategoryListView(request):
     
     
     
-def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats)
-    return render(request, 'categories.html', {'cats':cats.title(), 'category_posts':category_posts})
+# def CategoryView(request, cats):
+#     category_posts = Post.objects.all().filter(category=cats)
+#     return render(request, 'categories.html', {'cats':cats, "category_posts":category_posts})
     
- 
-# class CategoryView(ListView):
-#     model = Post
-#     template_name = 'categories.html'
-#     context_object_name = 'category_posts'
 
-#     def get_queryset(self):
-#         category = self.kwargs['cats']
-#         return Post.objects.filter(category=category)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         category = self.kwargs['cats']
-#         context['category_name'] = category.title()
-#         return context
- 
-
+class CategoryView(ListView):
+    model = Post
+    template_name = "categories.html"
+    
+    def get_context_data(self, *args, **kwargs):
+        category_posts = Post.objects.all()
+        context = super(CategoryView, self).get_context_data(*args, **kwargs)
+        context["category_posts"] = category_posts                
+        return context
+    
+    # def get_context_data(self, **kwargs):
+    #     # category_posts = Post.objects.all()
+    #     context = super().get_context_data(**kwargs)
+    #     context["category_posts"] = Post.objects.all(category=self.kwargs['cats'])               
+    #     return context
  
  
     

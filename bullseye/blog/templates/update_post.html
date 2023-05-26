@@ -1,29 +1,35 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template -->
 
-{% block title %}
+{% load static %}  <!-- Loads static files -->
+
+{% block title %}  <!-- Defines the title block -->
     Edit Blog Post!
-{% endblock %}
+{% endblock %}  <!-- Ends the title block -->
 
-{% block content %}
-    
+{% block content %}  <!-- Defines the content block -->
 
-    {% if user.is_authenticated %}
-        {% if user.id == post.author.id %}
-            <h1>Update Blog Post...<h1>
-                <br>
+    {% if user.is_authenticated %}  <!-- Checks if the user is authenticated -->
+
+        {% if user.id == post.author.id %}  <!-- Checks if the authenticated user is the author of the post -->
+
+            <h1>Update Blog Post...<h1>  <!-- Displays the heading for updating a blog post -->
+            <br>  <!-- Adds a line break -->
+
             <div class="mb-3">
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-secondary">Update</button>
+                <form method="POST">  <!-- Starts a form with HTTP method set to POST -->
+                    {% csrf_token %}  <!-- Generates a CSRF token for security -->
+                    {{ form.media }}  <!-- Includes any additional media required by the form -->
+                    {{ form.as_p }}  <!-- Renders the form fields as paragraphs -->
+                    <button type="submit" class="btn btn-secondary">Update</button>  <!-- Displays a button to submit the update request -->
+                </form>
             </div>
+
         {% else %}
-            "You are not authourized to perform this operation"
+            "You are not authorized to perform this operation"  <!-- Displays a message indicating the user is not authorized to update the post -->
         {% endif %}
+
     {% else %}
-        "You are not authourized to perform this operation"
+        "You are not authorized to perform this operation"  <!-- Displays a message indicating the user is not authenticated -->
     {% endif %}
 
-{% endblock %}
+{% endblock %}  <!-- Ends the content block -->

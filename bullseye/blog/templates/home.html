@@ -1,39 +1,50 @@
-{% extends "blog/base.html" %}
-{% load static %}
-{% block content %}
-<br />
-<hr />
-<br />
-<img src='{% static "blog/images/hero.png" %}' alt='hero' class='img-fluid'>
-<br />
-<hr />
-<br />
+{% extends "blog/base.html" %}  <!-- Extends the base.html template -->
 
+{% load static %}  <!-- Loads static files -->
 
+{% block content %}  <!-- Defines the content block -->
+<br />  <!-- Adds a line break -->
+<hr />  <!-- Adds a horizontal rule -->
+<br />  <!-- Adds a line break -->
+<img src='{% static "blog/images/hero.png" %}' alt='hero' class='img-fluid'>  <!-- Displays an image with a static URL -->
+<br />  <!-- Adds a line break -->
+<hr />  <!-- Adds a horizontal rule -->
+<br />  <!-- Adds a line break -->
 
-<h1>Posts<h1>
-<ul>
-    {% for post in object_list %}
-       <li><a href="{% url 'article-detail' post.pk %}"> {{post.title}} </a>
-        -  <small><small><a href="{% url 'category' post.category|slugify %}">{{post.category}}</a></small>  
-        -  <small>{{post.author.first_name}}   {{ post.author.last_name}} | {{post.author.email}} <br/>  
-            {{post.post_date}}</small>   </small>     
-            <br>                       
+<h1>Posts<h1>  <!-- Displays the heading for the posts section -->
+<ul>  <!-- Starts an unordered list -->
 
-            <small>
-            {% if user.is_authenticated %}  
-                {% if user.id == post.author.id %}
-                    <small><a href="{% url 'update_post' post.pk %}" class='text-success'>(Edit)</a> 
-                    | <a href="{% url 'delete_post' post.pk %}" class='text-danger'>(Delete)</a></small>  
+    {% for post in object_list %}  <!-- Iterates over each post in object_list -->
+
+       <li>  <!-- Starts a list item -->
+           <a href="{% url 'article-detail' post.pk %}"> {{post.title}} </a>  <!-- Displays the post title with a link to article-detail view -->
+        -  <small><small><a href="{% url 'category' post.category|slugify %}">{{post.category}}</a></small>  <!-- Displays the post category with a link to category view -->
+        -  <small>{{post.author.first_name}}   {{ post.author.last_name}} | {{post.author.email}} <br/>  <!-- Displays the post author's name and email -->
+            {{post.post_date}}</small>   </small>  <!-- Displays the post date -->
+            <br>  <!-- Adds a line break -->
+
+            <small>  <!-- Starts a small text block -->
+
+            {% if user.is_authenticated %}  <!-- Checks if the user is authenticated -->
+
+                {% if user.id == post.author.id %}  <!-- Checks if the authenticated user is the author of the post -->
+
+                    <small><a href="{% url 'update_post' post.pk %}" class='text-success'>(Edit)</a>  <!-- Displays an edit link for the author -->
+                    | <a href="{% url 'delete_post' post.pk %}" class='text-danger'>(Delete)</a></small>  <!-- Displays a delete link for the author -->
+
                 {% endif %}
-            {% endif %}
-            </small><br>
-        
-       <small><small> {{ post.snippet }} </small>  </small>  
-        {% comment %} {{ post.body | slice:":200"| safe }} {% endcomment %}
-        </li>
-        <hr />
-    {% endfor %}
-</ul>
 
-{% endblock %}
+            {% endif %}
+
+            </small><br>  <!-- Ends the small text block and adds a line break -->
+        
+       <small><small> {{ post.snippet }} </small>  </small>  <!-- Displays the post snippet -->
+        {% comment %} {{ post.body | slice:":200"| safe }} {% endcomment %}  <!-- Comments out the code that displays a portion of the post body -->
+        </li>  <!-- Ends the list item -->
+        <hr />  <!-- Adds a horizontal rule -->
+
+    {% endfor %}  <!-- Ends the for loop -->
+
+</ul>  <!-- Ends the unordered list -->
+
+{% endblock %}  <!-- Ends the content block -->

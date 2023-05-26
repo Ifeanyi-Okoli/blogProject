@@ -1,30 +1,37 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %}  <!-- Extends the base.html template -->
 
-{% block title %}
+{% load static %}  <!-- Loads static files -->
+
+{% block title %}  <!-- Defines the title block -->
     Delete Blog Post!
-{% endblock %}
+{% endblock %}  <!-- Ends the title block -->
 
-{% block content %}
-    
+{% block content %}  <!-- Defines the content block -->
 
-{% if user.is_authenticated %}
-    {% if user.id == post.author.id %}
-        <h1>Delete Blog Post...<h1>
-            <br>
-        <h3>Delete: {{ post.title }}</h3>
-            <br>
+{% if user.is_authenticated %}  <!-- Checks if the user is authenticated -->
+
+    {% if user.id == post.author.id %}  <!-- Checks if the authenticated user is the author of the post -->
+
+        <h1>Delete Blog Post...<h1>  <!-- Displays the heading for deleting a blog post -->
+        <br>  <!-- Adds a line break -->
+
+        <h3>Delete: {{ post.title }}</h3>  <!-- Displays the title of the post to be deleted -->
+        <br>  <!-- Adds a line break -->
+
         <div class="mb-3">
-            <form method="POST">
-                {% csrf_token %}
-                <strong>Are you sure you want to delete this post?</strong><br><br>
-                <button type="submit" class="btn btn-secondary">Delete Post!</button>
+            <form method="POST">  <!-- Starts a form with HTTP method set to POST -->
+                {% csrf_token %}  <!-- Generates a CSRF token for security -->
+                <strong>Are you sure you want to delete this post?</strong><br><br>  <!-- Displays a confirmation message -->
+                <button type="submit" class="btn btn-secondary">Delete Post!</button>  <!-- Displays a button to submit the delete request -->
+            </form>
         </div>
+
     {% else %}
-        "You are not authourized to perform this operation"
+        "You are not authorized to perform this operation"  <!-- Displays a message indicating the user is not authorized to delete the post -->
     {% endif %}
+
 {% else %}
-    "You are not authourized to perform this operation"
+    "You are not authorized to perform this operation"  <!-- Displays a message indicating the user is not authenticated -->
 {% endif %}
 
-{% endblock %}
+{% endblock %}  <!-- Ends the content block -->

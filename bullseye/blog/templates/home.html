@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<br />
+<hr />
+<br />
+<img src='{% static "blog/images/hero.png" %}' alt='hero' class='img-fluid'>
+<br />
+<hr />
+<br />
+
+
+
+<h1>Posts<h1>
+<ul>
+    {% for post in object_list %}
+       <li><a href="{% url 'article-detail' post.pk %}"> {{post.title}} </a>
+        -  <small><small><a href="{% url 'category' post.category|slugify %}">{{post.category}}</a></small>  
+        -  <small>{{post.author.first_name}}   {{ post.author.last_name}} | {{post.author.email}} <br/>  
+            {{post.post_date}}</small>   </small>     
+            <br>                       
+
+            <small>
+            {% if user.is_authenticated %}  
+                {% if user.id == post.author.id %}
+                    <small><a href="{% url 'update_post' post.pk %}" class='text-success'>(Edit)</a> 
+                    | <a href="{% url 'delete_post' post.pk %}" class='text-danger'>(Delete)</a></small>  
+                {% endif %}
+            {% endif %}
+            </small><br>
+        
+       <small><small> {{ post.snippet }} </small>  </small>  
+        {% comment %} {{ post.body | slice:":200"| safe }} {% endcomment %}
+        </li>
+        <hr />
+    {% endfor %}
+</ul>
+
+{% endblock %}

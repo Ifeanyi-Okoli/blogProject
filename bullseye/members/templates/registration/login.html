@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    
+
+
+<h1>Login...<h1>
+    <br>
+<div class="mb-3">
+    <form method="POST">
+        {% csrf_token %}
+       
+            <div class="mb-3">
+          
+              <input type="text" class="form-control" name='username' placeholder='Username'>
+              
+            </div>
+
+            <div class="mb-3">
+                <input type="password" class="form-control" name = 'password' placeholder='Password'>
+
+                {% comment %} <small id="emailHelp" class="form-text text-muted">Not A User? Register Here</small> {% endcomment %}
+            </div>
+                
+      <br/>
+        <button type="submit" class="btn btn-secondary">Login</button>
+    </div>
+    <br/>
+    <small><small class='fs-3'>Not Registered? Sign Up <a href='{% url "register" %}'>Here...</a></small></small>
+
+
+{% endblock %}

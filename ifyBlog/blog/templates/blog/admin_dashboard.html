@@ -1,0 +1,14 @@
+<h2>Admin Dashboard</h2>
+<h3>Users</h3>
+<ul>
+  {% for user in users %}
+    <li>{{ user.username }} ({{ user.email }})</li>
+  {% endfor %}
+</ul>
+<h3>Authors</h3>
+<ul>
+  {% for author in authors %}
+    <li>{{ author.username }} ({{ author.email }})</li>
+  {% endfor %}
+</ul>
+<h

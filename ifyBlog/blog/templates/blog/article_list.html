@@ -1,0 +1,14 @@
+<h2>Article List</h2>
+<ul>
+  {% for article in articles %}
+    <li>
+      <h3>{{ article.title }}</h3>
+      <p>Category: {{ article.category }}</p>
+      <p>Author: {{ article.author }}</p>
+      <p>Published Date: {{ article.published_date }}</p>
+      <p>Updated Date: {{ article.updated_date }}</p>
+      <p>Tags: {{ article.tags.all|join:", " }}</p>
+      <p>{{ article.content }}</p>
+    </li>
+  {% endfor %}
+</ul>

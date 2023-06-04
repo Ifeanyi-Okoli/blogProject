@@ -1,0 +1,17 @@
+<h2>Author Dashboard</h2>
+<ul>
+  {% for article in articles %}
+    <li>
+      <h3>{{ article.title }}</h3>
+      <p>Category: {{ article.category }}</p>
+      <p>Published Date: {{ article.published_date }}</p>
+      <p>Updated Date: {{ article.updated_date }}</p>
+      <p>Tags: {{ article.tags.all|join:", " }}</p>
+      <p>{{ article.content }}</p>
+      <p>
+        <a href="{% url 'update_article' article.id %}">Edit</a>
+        <a href="{% url 'delete_article' article.id %}">Delete</a>
+      </p>
+    </li>
+  {% endfor %}
+</ul>

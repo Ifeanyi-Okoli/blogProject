@@ -1,0 +1,6 @@
+<h2>Subscribe to Newsletter</h2>
+<form method="POST">
+  {% csrf_token %}
+  <input type="email" name="email" placeholder="Enter your email">
+  <button type="submit">Subscribe</button>
+</form>
